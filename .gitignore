@@ -1,0 +1,14 @@
+# Compiled Byte files
+__pychache__
+*.py[cod]
+*$py.class
+
+# Setuptools distribution folder
+/dist/
+
+# Python egg metadata
+/*.egg-info
+/*.egg
+
+# Pycharm settings
+.idea
