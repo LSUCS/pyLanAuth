@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}LAN Auth{% endblock %}
+{% block subtitle %}login{% endblock %}
+
+{# Additional CSS file #}
+{% block scripts %}
+<link rel="stylesheet" type="text/css" href={{ url_for("static", filename="css/pages/login.css") }}></link>
+{% endblock %}
+
+
+{% block content %}
+
+  <div class="row">
+    <div id="login-panel" class="card-panel col s4 offset-s4 z-depth-3 center-align">
+      <div class="card-panel grey lighten-3">
+        <h3 class="black-text font-reznor">Ad<span class="orange-text">min</span></h3>
+        <span>For committee and tech use only</span>
+      </div>
+      <div class="card-content">
+        <form id="login-form" class="col s9 offset-s1" action="/admin/login" method="post">
+          <div class="row">
+            <div class="input-field">
+              <i class="material-icons prefix">lock</i>
+              <input type="password" name="password" />
+              <label for="password">Password: </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 offset-s3">
+              <button class="btn grey darken-2 waves-effect waves-light col s6" type="submit" name="submit">
+                Sign In <i class="material icons right"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

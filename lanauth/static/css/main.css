@@ -1,0 +1,54 @@
+/* Global Stylesheet */
+/*===================*/
+
+/* Fonts */
+@font-face {
+	font-family: 'reznor';
+	src: url('/static/fonts/reznor.eot');                        /* IE9 Compact Modes */
+	src: local('?'),
+         url('/static/fonts/reznor.woff') format('woff'),        /* Modern Browsers */
+         url('/static/fonts/reznor.ttf') format('truetype'),     /* Safari, Android, iOS */
+         url('/static/fonts/reznor.svg') format('svg');          /* Legacy iOS */
+	font-weight: normal;
+	font-style: normal;
+}
+
+.font-reznor {
+  font-family: reznor;
+}
+
+/* Base styles */
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background-image: url('/static/images/background.jpg');
+  background-size: cover;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+/* Login Page */
+#login-panel {
+  margin: 0 auto;
+  margin-top:50px;
+  padding-bottom:20px;
+}
+
+#login-form {
+  margin-top:50px;
+}
+
+#login-progress {
+  display: none;
+}
+
+/* Collapsibles */
+.collapsible-header.active {
+  background-color: #ffe0b2 !important;
+}
+.card-panel {
+    padding: 10px;
+}

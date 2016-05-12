@@ -1,0 +1,8 @@
+# Include flask templates and static data
+
+# Core module
+recursive-include lanauth/static *
+recursive-include lanauth/templates *
+
+# Admin module
+recursive-include lanauth/admin/templates *

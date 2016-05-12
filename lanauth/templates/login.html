@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}LAN Auth{% endblock %}
+{% block subtitle %}login{% endblock %}
+
+{# Additional JS file #}
+{% block scripts %}
+<script type="text/javascript" src={{ url_for("static", filename="js/login.js") }}></script>
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div id="login-panel" class="card-panel col s4 z-depth-3 center-align">
+      <div class="card-panel grey lighten-3">
+        <h3 class="black-text font-reznor">lsu<span class="orange-text">cs</span></h3>
+        <span>Login to the LAN</span>
+      </div>
+      <div class="card-content">
+        {# Error box for authentication errors #}
+        <div id="error" class="col s9">
+          <div class="row">
+            <i class="material-icons">report_problem</i>
+            <p id="error-text">Error !</p>
+          </div>
+        </div>
+        {# User login form #}
+        <form id="login-form" class="col s9 offset-s1">
+          <div id="error-box" class="row hide">
+            Invalid username/password! Please visit <a href="http://lsucs.org.uk">http://lsucs.org.uk</a> if you need to reset your password
+          </div>
+          <div class="row">
+            <div class="input-field">
+              <i class="material-icons prefix">account_circle</i>
+              <input type="text" id="username" data-error="Invalid"/>
+              <label for="username">Username: </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field">
+              <i class="material-icons prefix">lock</i>
+              <input type="password" id="password" data-error="Invalid"/>
+              <label for="password">Password: </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field">
+              <i class="material-icons prefix">event_seat</i>
+              <input type="text" id="seat"/>
+              <label for="seat">Seat: </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 center-align">
+            <button class="btn grey darken-2 waves-effect waves-light col s6">Sign In
+              <i class="material icons right"></i>
+            </button>
+            </div>
+          </div>
+        </form>
+        {# Pending box: To be diplayed when waiting for an auth response to complete#}
+        <div id="pending" class="col s9 offset-s1">
+          <p>Authenticating</p>
+          <div class="row">
+            <div class="preloader-wrapper big active">
+              <div class="spinner-layer spinner-green-only">
+                <div class="circle-clipper left">
+                  <div class="circle"></div>
+                </div>
+                  <div class="gap-patch">
+                  <div class="circle"></div>
+                </div>
+                  <div class="circle-clipper right">
+                  <div class="circle"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {# Authenticated box: To be displayed when a user is sucessfully authenticated #}
+        <div id="authenticated" class="col s9 offset-s1">
+          <div class="row">
+            <i class="material-icons">done</i>
+            <p>Authenticated !
+            <br>Redirecting to the lan website</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
