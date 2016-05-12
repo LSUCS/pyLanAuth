@@ -10,5 +10,8 @@ __pychache__
 /*.egg-info
 /*.egg
 
+# Virtual environment
+/env
+
 # Pycharm settings
 .idea
