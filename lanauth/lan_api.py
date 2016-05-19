@@ -1,5 +1,5 @@
 """
-Wrapper class for the LAN website API
+Wrapper class for the LAN website API.
 """
 import logging
 import requests
@@ -13,7 +13,7 @@ class LanWebsiteAPI(object):
     """
     Interface to the lan website API.
     """
-    
+
     def __init__(self, base_url, apikey):
         self.base_url = base_url
         self.apikey = apikey
@@ -21,6 +21,9 @@ class LanWebsiteAPI(object):
     def lan_number(self):
         """
         Fetches the current lan number
+
+        **Endpoint**: <base address>/api/lannumber
+
         :returns int:   Lan Number
         """
         url = self.base_url + '/api/lannumber'
@@ -36,6 +39,8 @@ class LanWebsiteAPI(object):
     def lan_auth(self, username, password, seat):
         """
         Check credentials and seat with the LAN website.
+
+        **Endpoint**: <base address>/api/lanauth
         """
         data = {
             "api_key": self.apikey,
@@ -72,21 +77,18 @@ class APIError(Exception):
 
 # Self test
 if __name__ == '__main__':
-    
-    # Key for talking to the HTTP api
-    APIKEY = 'L$uc$7anap1k3y'
-    BASE_URL = 'https://dev.lan.lsucs.org.uk'
 
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('-u', required=True, help='Username')
-    parser.add_argument('-p', required=True, help='Password')
-    parser.add_argument('-s', required=True, help='Seat')
+    parser.add_argument('-u', '--username', required=True, help='Username')
+    parser.add_argument('-p', '--password', required=True, help='Password')
+    parser.add_argument('-s', '--seat', required=True, help='Seat')
+    parser.add_argument('-a', '--apiurl', required=True, help='Base URL')
+    parser.add_argument('-k', '--apikey', required=True, help='API Key')
     args = parser.parse_args()
 
-    api = LANWebsiteAPI(BASE_URL, APIKEY)
-    
+    api = LanWebsiteAPI(args.apiurl, args.apikey)
     try:
-        api.lanauth(args.u, args.p, args.s)
+        api.lan_auth(args.u, args.p, args.s)
     except APIError as error:
         print("Exception when testing lanauth: %s" % str(error))
