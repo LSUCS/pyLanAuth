@@ -30,16 +30,13 @@ def _set_sqlite_pragma(dbapi_connection, connection_record):
 
 
 def load_db(config=None):
-    """
-    Starts the database engine and loads a sessioni
+    """Starts the database engine and loads a session
     :param config:  SiteConfig object containing database settings
     """
     global engine, Session
 
     if config is not None:
-        db_uri = config.get('database', 'uri', fallback="sqlite:///memory")
-    else:
-        db_uri = "sqlite:///memory"
+        db_uri = config.get('database', 'uri', fallback="sqlite:///:memory:")
 
     logger.info("Using database URI: %s" % db_uri)
     engine = create_engine(db_uri)
@@ -51,8 +48,7 @@ def load_db(config=None):
 
 
 def to_dict(record):
-    """
-    Converts a database record into a dictionary
+    """Converts a database record into a dictionary
     :param record:  Database record
     :return:        Dictionary key=column value=value
     """
@@ -72,9 +68,7 @@ def to_dict(record):
 
 @contextlib.contextmanager
 def open_session():
-    """
-    Handles connections (sessions) with the database.
-    """
+    """Handles connections (sessions) with the database."""
     global engine, Session
 
     session = Session()
