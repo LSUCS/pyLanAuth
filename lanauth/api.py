@@ -11,7 +11,6 @@ from flask_restful import Api, Resource, reqparse
 # Local imports
 from lanauth.db import open_session
 from lanauth.db.models import Authentications, AuthQueue
-from lanauth.utilities import do_ssh
 from lanauth.lan_api import LanWebsiteAPI, APIError
 
 
