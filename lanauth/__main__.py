@@ -2,13 +2,13 @@
 Entry point script for the app
 """
 import logging
+import time
 from configparser import Error as ConfigError
 
 from lanauth.app import app_factory
 from lanauth.admin import app as admin_blueprint
 from lanauth.config import SiteConfig
 from lanauth.db import load_db
-
 
 
 def load_config(config_file):
@@ -101,7 +101,18 @@ def cli():
         rootLogger.info('LANAUTH Daemon') 
 
         load_db(config)
-        daemon = Daemon(config)
+
+        # Loop until the damon is initialised, to protect against lack of internet.
+        while True:
+            try:
+                daemon = Daemon(config)
+                break
+            except KeyboardInterrupt:
+                raise SystemExit
+            except Exception as error:
+                rootLogger.warning("Failed to initialise Daemon: %s", str(error))
+                time.sleep(1)
+
         daemon.start()
 
     # Run the webserver
