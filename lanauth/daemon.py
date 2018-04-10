@@ -13,10 +13,6 @@ from lanauth.lan_api import LanWebsiteAPI
 logger = logging.getLogger(__name__)
 
 
-# Interval to sleep for between checks
-DEFAULT_INTERVAL = 60
-
-
 class Daemon():
     """
     Worker for opening access to the firewall
