@@ -2,6 +2,7 @@
 Entry point script for the app
 """
 import logging
+import os
 from configparser import Error as ConfigError
 
 from lanauth.app import app_factory
@@ -114,7 +115,7 @@ def cli():
 
 def uwsgi():
     """Entry point for uwsgi"""
-    config = load_config(args.config)
+    config = load_config(os.environ.get("LANAUTH_CONFIG"))
     if config is not None:
         app = load_app(config)
         return app
