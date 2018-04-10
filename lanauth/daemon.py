@@ -19,7 +19,7 @@ class Daemon():
     """
     
     def __init__(self, config):
-        self.interval = config.get('daemon', 'interval', fallback=30)
+        self.interval = config.getint('daemon', 'interval', fallback=30)
     
         name     = config.get('device', 'name')
         address  = config.get('device', 'address')
