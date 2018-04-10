@@ -90,7 +90,7 @@ def cli():
         rootLogger.setLevel(logging.DEBUG)
         console = logging.StreamHandler()
         console.setLevel(logging.INFO)
-        filelogger = logging.FileHandler('/srv/http/lanauth/log')
+        filelogger = logging.FileHandler(config['daemon']['logfile'])
         filelogger.setLevel(logging.INFO)
         
         formatter = logging.Formatter('%(asctime)-15s %(levelname)-8s %(name)-15s %(message)s')
