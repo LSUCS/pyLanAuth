@@ -31,7 +31,7 @@ class Device(object):
         :param ip_addr:  IP to allow in the firewall
         """
 
-        cmd = "ssh -i %s %s@%s %s %i %s %s" % (
+        cmd = "ssh -o StrictHostKeyChecking=no -i %s %s@%s %s %i %s %s" % (
             # Router
             self.keyfile,
             self.remote_user,
