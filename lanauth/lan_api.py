@@ -33,7 +33,7 @@ class LanWebsiteAPI(object):
         except ConnectionError:
             raise APIError("Error connecting to the LAN API")
 
-        return int(req.json()['lan'])
+        return float(req.json()['lan'])
 
 
     def lan_auth(self, username, password, seat):

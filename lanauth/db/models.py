@@ -24,7 +24,7 @@ class Authentications(Base):
 
     id         = Column(Integer, primary_key=True)  #: Unique identifier
     ip_addr    = Column(String(15))                 #: IP address
-    lan        = Column(Integer)                    #: Lan number
+    lan        = Column(Float)                      #: Lan number
     username   = Column(String(64))                 #: Forums username
     seat       = Column(String(4))                  #: Seat at LAN
     status     = Column(Boolean, nullable=False)
