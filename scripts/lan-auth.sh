@@ -20,7 +20,7 @@ run=/opt/vyatta/sbin/vyatta-cfg-cmd-wrapper
 $run begin
 
 # Add users IP to firewall group
-$run firewall group address-group $AUTH_GROUP address $3
+$run set firewall group address-group $AUTH_GROUP address $3
 echo "Added $3 to $AUTH_GROUP"
 
 # Commit
