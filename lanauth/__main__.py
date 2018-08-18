@@ -2,13 +2,14 @@
 Entry point script for the app
 """
 import logging
-import time
+import os
 from configparser import Error as ConfigError
 
 from lanauth.app import app_factory
 from lanauth.admin import app as admin_blueprint
 from lanauth.config import SiteConfig
 from lanauth.db import load_db
+
 
 
 def load_config(config_file):
@@ -89,7 +90,7 @@ def cli():
         rootLogger.setLevel(logging.DEBUG)
         console = logging.StreamHandler()
         console.setLevel(logging.INFO)
-        filelogger = logging.FileHandler('/srv/http/lanauth/log')
+        filelogger = logging.FileHandler(config['daemon']['logfile'])
         filelogger.setLevel(logging.INFO)
         
         formatter = logging.Formatter('%(asctime)-15s %(levelname)-8s %(name)-15s %(message)s')
@@ -101,18 +102,7 @@ def cli():
         rootLogger.info('LANAUTH Daemon') 
 
         load_db(config)
-
-        # Loop until the damon is initialised, to protect against lack of internet.
-        while True:
-            try:
-                daemon = Daemon(config)
-                break
-            except KeyboardInterrupt:
-                raise SystemExit
-            except Exception as error:
-                rootLogger.warning("Failed to initialise Daemon: %s", str(error))
-                time.sleep(1)
-
+        daemon = Daemon(config)
         daemon.start()
 
     # Run the webserver
@@ -125,7 +115,7 @@ def cli():
 
 def uwsgi():
     """Entry point for uwsgi"""
-    config = load_config(args.config)
+    config = load_config(os.environ.get("LANAUTH_CONFIG"))
     if config is not None:
         app = load_app(config)
         return app
