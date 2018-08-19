@@ -13,7 +13,7 @@ from lanauth.lan_api import LanWebsiteAPI
 logger = logging.getLogger(__name__)
 
 
-class Daemon():
+class Daemon(object):
     """
     Worker for opening access to the firewall
     """

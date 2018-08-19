@@ -1,16 +1,13 @@
 """
 Database helper classes
 """
-# Python stl imports
 import contextlib
 import logging
 
-# External module imports
 from sqlalchemy import Date, create_engine, event
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import sessionmaker
 
-# Globals
 engine = None
 Session = None
 
@@ -37,6 +34,8 @@ def load_db(config=None):
 
     if config is not None:
         db_uri = config.get('database', 'uri', fallback="sqlite:///:memory:")
+    else:
+        db_uri = "sqlite:///:memory:"
 
     logger.info("Using database URI: %s" % db_uri)
     engine = create_engine(db_uri)

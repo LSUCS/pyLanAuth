@@ -1,21 +1,15 @@
-"""
-Webserver routing
+from flask import Flask, render_template, jsonify
 
-    /
-    /login  Route to the main page
-"""
-# Python stl imports
-
-# External module imports
-from flask import Flask, render_template
-
-# Internal module imports
+from lanauth.exc import Unauthorized
 from lanauth.api import load_api
 
 
 class App(Flask):
-    """
-    Web application
+    """Web application.
+
+    Routes:
+        /
+        /login  Route to the main page
     """
 
     def configure_views(self):
@@ -23,13 +17,20 @@ class App(Flask):
 
         @self.route('/')
         @self.route('/login')
+        @self.route("/guest/s/{str:site}")
         def login():
             """Route to login (index) page"""
             return render_template('login.html')
 
+        @self.errorhandler(Unauthorized)
+        def error_401_handler(error):
+            response = jsonify(error.to_dict())
+            response.status_code = error.status_code
+            return response
+
 
 def app_factory(app_name, config, blueprints=None):
-    """Build the webappi
+    """Build the webappi.
     
     :param str app_name:        Name of the Flask application
     :param config:              Site configuration

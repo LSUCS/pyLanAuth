@@ -10,7 +10,7 @@ from flask_restful import Api, Resource, reqparse
 
 # Local imports
 from lanauth.db import open_session
-from lanauth.db.models import Authenticationso
+from lanauth.db.models import Authentications
 from lanauth.lan_api import LanWebsiteAPI, APIError
 from lanauth.unifi import Unifi, UnifiError
 
