@@ -1,3 +1,20 @@
+
+
+function get_url_param(sParam, default_val=null)
+{
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++)
+    {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam)
+        {
+            return sParameterName[1];
+        }
+    }
+    return default_val
+}​
+
 /**
  *  Check the current auth state of the user
  */
@@ -25,7 +42,7 @@ function check() {
                     $("#login-form, #pending").hide(500);
                     $("#authenticated").show(500);
                     setTimeout(function() {
-                        window.location = "http://lan.lsucs.org.uk/index.php?page=account";
+                        window.location = get_url_param("url", "http://lan.lsucs.org.uk/index.php?page=account");
                     }, 3000);
             }
         },
@@ -45,7 +62,9 @@ function auth() {
         "/api/auth", {
             username: $("#username").val(),
             password: $("#password").val(),
-            seat: $("#seat").val() 
+            seat: $("#seat").val(),
+            wifi_id: get_url_param("id")
+            wifi_site: get_url_param("site")
         },
         function (response) {
             if (response.status == STATUS_PASS) {

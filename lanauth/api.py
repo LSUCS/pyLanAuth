@@ -10,8 +10,9 @@ from flask_restful import Api, Resource, reqparse
 
 # Local imports
 from lanauth.db import open_session
-from lanauth.db.models import Authentications, AuthQueue
+from lanauth.db.models import Authenticationso
 from lanauth.lan_api import LanWebsiteAPI, APIError
+from lanauth.unifi import Unifi, UnifiError
 
 
 
@@ -25,7 +26,6 @@ class CheckAPI(Resource):
         {
             "status": 0
         }
-
     """
     STATUS_NO_AUTH = 0      #: User has not yet authenticated
     STATUS_PENDING = 1      #: Authentication is pending
@@ -41,7 +41,7 @@ class CheckAPI(Resource):
         try:
             lan_number = lw_api.lan_number()
         except APIError as error:
-            return jsonify({"status": STATUS_NO_AUTH})
+            return jsonify({"status": self.STATUS_NO_AUTH})
             
         # Incase the server is running behind a proxy
         ip_addr = request.remote_addr
@@ -113,6 +113,8 @@ class AuthAPI(Resource):
     parser.add_argument('username', required=True)
     parser.add_argument('password', required=True)
     parser.add_argument('seat', required=True)
+    parser.add_argument('wifi_id', default=None)
+    parser.add_argument('wifi_site', default=None)
 
     def post(self):
 
@@ -145,16 +147,26 @@ class AuthAPI(Resource):
                            .filter(Authentications.ip_addr == ip_addr) \
                            .first()
 
-            # If true user IP has alread authenticated
-            if auth_check:
-                return jsonify(response)
+            # If true user IP has already authenticated
+            if not auth_check:
+                Authentications.add(session, ip_addr, lan_number, args.username, args.seat)
 
-            # Add new record
-            auth = Authentications.add(session, ip_addr, lan_number, args.username, args.seat)
+                current_app.logger.info("Authentication added for: %s IP: %s" %
+                    (args.username, ip_addr)
+                )
 
-        current_app.logger.info("Authentication added for: %s IP: %s" %
-                (args.username, ip_addr)
-            )
+        if args.wifi_id is not None and args.wifi_site is not None:
+            unifi_url = current_app.iniconfig.get('unifi', 'url')
+            unifi_user = current_app.iniconfig.get('unifi', 'username')
+            unifi_pass = current_app.iniconfig.get('unifi', 'password')
+
+            unifi = Unifi(unifi_url, unifi_user, unifi_pass)
+
+            try:
+                unifi.login()
+                unifi.authorize(args.wifi_site, args.wifi+id)
+            except UnifiError:
+                pass
 
         return jsonify(response)
 

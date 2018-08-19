@@ -1,21 +1,17 @@
 """
 SQL table models
 """
-# Python stl imports
 import datetime
 
-# External module imports
 from sqlalchemy import Boolean, Column, DateTime, Float, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 
-# Local imports
 from lanauth.db import engine
 
 Base = declarative_base(bind=engine)
 
 
-# Tables
 class Authentications(Base):
     """
     Store a list of all sucessful authentications
