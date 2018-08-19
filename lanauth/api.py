@@ -164,7 +164,7 @@ class AuthAPI(Resource):
 
             try:
                 unifi.login()
-                unifi.authorize(args.wifi_site, args.wifi+id)
+                unifi.authorize(args.wifi_site, args.wifi_id)
             except UnifiError:
                 pass
 
