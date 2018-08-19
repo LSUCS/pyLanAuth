@@ -1,19 +1,16 @@
 
 
-function get_url_param(sParam, default_val=null)
-{
+function get_url_param(sParam, default_val = null) {
     var sPageURL = window.location.search.substring(1);
     var sURLVariables = sPageURL.split('&');
-    for (var i = 0; i < sURLVariables.length; i++)
-    {
+    for (var i = 0; i < sURLVariables.length; i++) {
         var sParameterName = sURLVariables[i].split('=');
-        if (sParameterName[0] == sParam)
-        {
+        if (sParameterName[0] == sParam) {
             return sParameterName[1];
         }
     }
     return default_val;
-}​
+}
 
 /**
  *  Check the current auth state of the user
@@ -28,7 +25,7 @@ function check() {
     $.get("/api/check",
         function(response) {
             var status_code = response.status;
-            
+
             switch(status_code) {
                 case STATUS_NO_AUTH:
                     $("#info, #login-form").show(500);
@@ -72,12 +69,12 @@ function auth() {
                 setTimeout(function() {
                     check();
                 }, 3000);
-            
+
             }
             else {
                 if (response.error) {
-                    $('#error-text').text(response.error)               
-                    $('#error').show();                    
+                    $('#error-text').text(response.error)
+                    $('#error').show();
                 }
             }
         },
@@ -99,7 +96,7 @@ $(document).ready(function() {
         auth();
     });
 
-    
+
     // Check the users authentication status
     check();
 });
