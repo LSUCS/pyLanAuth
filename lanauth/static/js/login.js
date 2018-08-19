@@ -60,7 +60,7 @@ function auth() {
             username: $("#username").val(),
             password: $("#password").val(),
             seat: $("#seat").val(),
-            wifi_id: get_url_param("id")
+            wifi_id: get_url_param("id"),
             wifi_site: get_url_param("site")
         },
         function (response) {
