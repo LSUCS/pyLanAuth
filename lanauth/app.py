@@ -1,6 +1,5 @@
 from flask import Flask, render_template, jsonify
 
-from lanauth.exc import Unauthorized
 from lanauth.api import load_api
 
 
@@ -21,13 +20,6 @@ class App(Flask):
         def login():
             """Route to login (index) page"""
             return render_template('login.html')
-
-        @self.errorhandler(Unauthorized)
-        def error_401_handler(error):
-            response = jsonify(error.to_dict())
-            response.status_code = error.status_code
-            return response
-
 
 def app_factory(app_name, config, blueprints=None):
     """Build the webappi.
