@@ -12,7 +12,7 @@ function get_url_param(sParam, default_val=null)
             return sParameterName[1];
         }
     }
-    return default_val
+    return default_val;
 }​
 
 /**
