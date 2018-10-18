@@ -10,9 +10,13 @@ ENV LANAUTH_CONFIG=prod.conf
 
 #Install python3, git and openssh in the container
 RUN apk add --no-cache \
-        python3 \
-        git \
-        openssh
+		openssl-dev \
+		build-base \
+		python3-dev \
+		libffi-dev \        
+		python3 \
+    	git \
+    	openssh
 
 #Installs the pylanauth git project as a python module
 RUN pip3 install git+git://github.com/lsucs/pylanauth

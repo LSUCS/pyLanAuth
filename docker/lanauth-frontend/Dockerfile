@@ -14,7 +14,12 @@ ENV LANAUTH_CONFIG=prod.conf
 RUN apk add --no-cache \
         uwsgi-python3 \
         python3 \
-        git
+        git \
+        openssl-dev \
+        build-base \
+        python3-dev \
+        libffi-dev \
+        openssh
 
 #Installs the pylanauth git project as a python module
 RUN pip3 install git+git://github.com/lsucs/pylanauth
