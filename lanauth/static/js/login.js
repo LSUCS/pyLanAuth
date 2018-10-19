@@ -39,7 +39,7 @@ function check() {
                     $("#login-form, #pending").hide(500);
                     $("#authenticated").show(500);
                     setTimeout(function() {
-                        window.location = get_url_param("url", "http://lan.lsucs.org.uk/index.php?page=account");
+                        window.location = decodeURIComponent(get_url_param("url", "http://lan.lsucs.org.uk/index.php?page=account"));
                     }, 3000);
             }
         },
