@@ -16,8 +16,8 @@ class App(Flask):
 
         @self.route('/')
         @self.route('/login')
-        @self.route("/guest/s/{str:site}")
-        def login():
+        @self.route("/guest/s/<str:site>")
+        def login(site):
             """Route to login (index) page"""
             return render_template('login.html')
 
