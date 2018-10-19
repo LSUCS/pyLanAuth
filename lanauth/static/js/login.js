@@ -55,13 +55,18 @@ function auth() {
     const STATUS_PASS = 0
     const STATUS_FAIL = 1
 
+    let wifi_site = window.location.pathname.match("\/s\/(.*)\/");
+    if(wifi_site != null && wifi_site.length >= 2) {
+        wifi_site = wifi_site[1];
+    }
+
     $.post(
         "/api/auth", {
             username: $("#username").val(),
             password: $("#password").val(),
             seat: $("#seat").val(),
             wifi_id: get_url_param("id"),
-            wifi_site: window.location.pathname.match("\/s\/(.*)\/")[1]
+            wifi_site: wifi_site
         },
         function (response) {
             if (response.status == STATUS_PASS) {
