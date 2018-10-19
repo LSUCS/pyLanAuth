@@ -61,7 +61,7 @@ function auth() {
             password: $("#password").val(),
             seat: $("#seat").val(),
             wifi_id: get_url_param("id"),
-            wifi_site: get_url_param("site")
+            wifi_site: window.location.pathname.match("\/s\/(.*)\/")[1]
         },
         function (response) {
             if (response.status == STATUS_PASS) {
